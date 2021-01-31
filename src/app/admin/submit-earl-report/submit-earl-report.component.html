@@ -1,0 +1,148 @@
+<!--div [formGroup]="earlReport">
+  <fieldset>
+    <legend>EARL Report</legend>
+
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex=45>
+        <label for="earlLink">Type a link</label>
+        <textarea id="earlLink" formControlName="earlLink"></textarea>
+      </div>
+
+      <div class="divider" fxLayout="column" fxFlex=10>or</div>
+
+      <div fxLayout="column" fxFlex=45>
+        <input type="file" id="earlFile" formControlName="earlFile" accept="application/json" (change)="addFile($event)" multiple/>
+        <label for="earlFile">Choose a file</label>
+      </div>
+    </div>
+
+    <button mat-icon-button (click)="sendFile()" class="submitButton"></button>
+  </fieldset>
+</div-->
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>EARL Report</mat-card-title>
+    <mat-card-subtitle>Here you can type links of or choose EARL reports files.
+      You also need to manually add some information about the application that these reports study.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="column" fxLayoutAlign="space-between">
+      <div class="link">
+        <label for="earlLinks">Type report's link(s):</label>
+        <textarea rows="3" id="earlLinks" [formControl]="earlLinks" placeholder="https://www.example.com/report.json"></textarea>
+      </div>
+      <span *ngIf="earlLinks.hasError('url')" class="errorMessage">Error: Invalid URLs! Must have protocol and be a .json file</span>
+
+      <span class="divider">and/or</span>
+
+      <div fxLayoutAlign="center center">
+        <input type="file" id="earlFiles" accept="application/json" (change)="addFile($event)" multiple/>
+        <label for="earlFiles" class="custom-file-upload">Choose file(s)</label>
+        <button mat-icon-button *ngIf="filesFromInput !== undefined" color="warn" aria-label="Clear file input" (click)="clearFileInput()"><mat-icon>clear</mat-icon></button>
+      </div>
+
+      <div *ngIf="fileErrorMessage" class="errorFilenames">
+        <span class="errorMessage">{{fileErrorMessage}}</span>
+        <ul>
+          <li *ngFor="let errorFile of errorFiles">{{errorFile}}</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <form [formGroup]="sqlData" *ngIf="!isInputEmptyOrWithErrors()">
+      <h2>Additional data</h2>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Organization name *</mat-label>
+        <input matInput [formControl]="sqlData.controls.org">
+        <mat-error *ngIf="sqlData.controls.org.hasError('required')">
+          Organization name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website name *</mat-label>
+        <input matInput [formControl]="sqlData.controls.appName">
+        <mat-error *ngIf="sqlData.controls.appName.hasError('required')">
+          App/Website name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website type *</mat-label>
+        <mat-select [formControl]="sqlData.controls.type" disableRipple>
+          <mat-option value="">---</mat-option>
+          <mat-option *ngFor="let t of types" [value]="t.value">{{t.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="sqlData.controls.type.hasError('required')">
+          App/Website type is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website URL</mat-label>
+        <input matInput [formControl]="sqlData.controls.appUrl">
+      </mat-form-field>
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website sector *</mat-label>
+        <mat-select [formControl]="sqlData.controls.sector" disableRipple>
+          <mat-option value="">---</mat-option>
+          <mat-option *ngFor="let s of sectors" [value]="s.value">{{s.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website country</mat-label>
+        <input type="text"
+           aria-label="Country"
+           matInput
+           [formControl]="sqlData.controls.country"
+           [matAutocomplete]="auto"
+           (blur)="inputControl($event)">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let c of countriesOptions | async" [value]="c">
+            {{c.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website tags</mat-label>
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let tag of selectedTagsNames"
+            [removable]="true"
+            (removed)="removeTag(tag)">{{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        <input type="text"
+          aria-label="Tags"
+          matInput
+          #tagsInput
+          [formControl]="sqlData.controls.tags"
+          [matAutocomplete]="autoTest"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addTag($event)">
+        </mat-chip-list>
+        <mat-autocomplete 
+          autoActiveFirstOption
+          #autoTest="matAutocomplete"
+          (optionSelected)="addTag($event)"
+          [displayWith]="displayFn">
+          <mat-option *ngFor="let t of tagsOptions | async" [value]="t">
+            {{t.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <div fxFlex></div>
+    <button mat-raised-button color="primary" [disabled]="isDisabledButton()" (click)="sendFile()">Submit</button>
+  </mat-card-actions>
+</mat-card>

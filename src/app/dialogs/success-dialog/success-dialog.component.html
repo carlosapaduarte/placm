@@ -1,0 +1,17 @@
+<mat-dialog-content>
+	<h1 class="success">> Success</h1>
+
+	<p>The statement was successfully added!</p>
+	<p>The following items were added:</p>
+	<ul>
+		<li *ngFor="let res of result">
+			{{res}}
+		</li>
+	</ul>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+	<span class="fill-remaining-space"></span>
+	<button mat-raised-button color="warn" (click)="close()">Close</button>
+</mat-dialog-actions>

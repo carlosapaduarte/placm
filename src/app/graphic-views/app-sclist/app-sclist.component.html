@@ -1,0 +1,84 @@
+<ng-template [ngIf]="error" [ngIfElse]="noError">
+  <app-error-page [errorMsg]="errorMessage"></app-error-page>
+</ng-template>
+
+<ng-template #noError>
+  <ng-template [ngIf]="!chartReady" [ngIfElse]="chartReadyToLoad">
+    <div class="loader_wrapper">
+      <div class="loader"><p></p></div>
+      <p class="loading_text">Loading...</p>
+    </div>
+  </ng-template>
+
+  <ng-template #chartReadyToLoad>
+    <app-graphic-breadcrumbs *ngIf="breadcrumbsReady" [data]="breadcrumbsData"></app-graphic-breadcrumbs>
+  
+    <div id="chart"></div>
+    
+    <mat-accordion multi>
+      <mat-expansion-panel *ngFor="let i of outcomes" [disabled]="i.data.length === 0" class="headers">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{i.title}}
+          </mat-panel-title>
+          <mat-panel-description>
+            ({{i.data.length}})
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <ng-template matExpansionPanelContent>
+          <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let x of i.data; even as isEven" [class.alternate]="isEven">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{x.SCId}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{x.Name}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <ng-template matExpansionPanelContent>
+                <mat-table matSort [dataSource]="x.table" 
+                [matSortDisableClear]="true"
+                matSortActive="page"
+                matSortDirection="asc">
+                  <ng-container matColumnDef="outcome">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Outcome</mat-header-cell>
+                    <mat-cell *matCellDef="let s">{{s['outcome']}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="rulename">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rule</mat-header-cell>
+                    <mat-cell *matCellDef="let s"><a [href]="s['rulelink']" target="_blank">{{s['rulename']}}</a></mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="page">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Page</mat-header-cell>
+                    <mat-cell *matCellDef="let s"><a [href]="s['page']" target="_blank">{{s['page']}}</a>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="eval">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Evaluation tool</mat-header-cell>
+                    <mat-cell *matCellDef="let s"><span>{{s['eval']}}</span>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+                    <mat-cell *matCellDef="let s"><span>{{s['description']}}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+              </ng-template>
+              
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </ng-template>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-template>
+</ng-template>

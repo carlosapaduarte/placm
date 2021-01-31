@@ -1,0 +1,127 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+}
+
+.navbar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+    flex-shrink: 0;
+    background-color: #0c2d64;
+    color: white;
+    width: 225px;
+    position: relative;
+    left: 0;
+    box-shadow: 2px 0 5px 2px rgba(0,0,0,.25);
+}
+
+.block {
+    display: block;
+}
+
+h1 {
+    padding: 0 1rem;
+    font-size: 3em;
+    color: white;
+}
+
+ul {
+    margin: 0;
+    list-style: none;
+    padding: 0 0 0 1rem;
+}
+
+aside a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    margin: 1rem 0;
+    position: relative;
+}
+
+hr {
+    opacity: .2;
+}
+
+.text {
+    font-size: 0.9em;
+}
+
+main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.open-sidebar {
+    width: calc(100% - 225px);
+}
+
+header {
+    width: auto;
+    box-shadow: 1px 1px 5px rgba(0,0,0,.25);
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    color: black;
+}
+.name {
+    margin: 0 1rem;
+    flex: 1 1;
+    overflow: hidden;
+}
+.name p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.logos {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.main-content {
+    padding: 0 1rem 1rem 1.25rem;
+    display: block;
+    overflow-y: auto;
+}
+
+.btn {
+    padding: 1em;
+    text-decoration: none;
+    line-height: 1em;
+    display: inline-block;
+    letter-spacing: .1em;
+    transition: border-color .2s ease-in-out,background .2s ease-in-out,color .2s ease-in-out;
+    border: 3px solid transparent;
+    color: #fefefe;
+    background: #0c2d64;
+    cursor: pointer;
+    margin: 0;
+    font-size: 100%;
+}
+.btn:active, .btn:focus, .btn:hover {
+    color: #2aabff;
+}
+
+.isDisabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+.isDisabled > span {
+    color: grey;
+    display: block;  /* For IE11/ MS Edge bug */
+    pointer-events: none;
+    text-decoration: none;
+    margin: 1rem 0;
+}

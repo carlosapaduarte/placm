@@ -1,0 +1,174 @@
+<!--div [formGroup]="accessStatement">
+  <fieldset>
+    <legend>Accessibility Statement</legend>
+
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex=45>
+        <label for="asLink">Type a link</label>
+        <textarea id="asLink" formControlName="asLink"></textarea>
+      </div>
+
+      <div class="divider" fxLayout="column" fxFlex=10>or</div>
+
+      <div fxLayout="column" fxFlex=45>
+        <input type="file" id="asFile" formControlName="asFile" accept="text/html" (change)="addFile($event)" multiple/>
+        <label for="asFile">Choose a file</label>
+      </div>
+    </div>
+
+    <button mat-icon-button (click)="sendFile()" class="submitButton"></button>
+  </fieldset>
+</div>
+
+mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Accessibility Statement</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <div fxFlex></div>
+    <button mat-button (click)="sendFile()">Submit</button>
+  </mat-card-actions>
+</mat-card-->
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Accessibility Statement</mat-card-title>
+    <mat-card-subtitle>Here you can type links of or choose accessibility statements files.
+      You also need to manually add some information about the application that these statements study.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="column" fxLayoutAlign="space-between">
+      <div class="link" *ngIf="filesFromInput === undefined">
+        <label for="asLinks">Type statement's link(s):</label>
+        <textarea rows="3" id="asLinks" [formControl]="asLinks" placeholder="https://www.example.com/statement"></textarea>
+      </div>
+      <span *ngIf="asLinks.hasError('url')" class="errorMessage">Error: Invalid URLs! Must have protocol and be a .html file</span>
+
+      <span class="divider" *ngIf="asLinks.value === '' && filesFromInput === undefined">or</span>
+
+      <div *ngIf="asLinks.value === ''" fxLayoutAlign="center center">
+        <input type="file" id="asFiles" accept="text/html" (change)="addFile($event)" multiple/>
+        <label for="asFiles" class="custom-file-upload">{{labelVal}}</label>
+        <button mat-icon-button *ngIf="filesFromInput !== undefined" color="warn" aria-label="Clear file input" (click)="clearFileInput()"><mat-icon>clear</mat-icon></button>
+      </div>
+
+      <div *ngIf="fileErrorMessage" class="errorFilenames">
+        <span class="errorMessage">{{fileErrorMessage}}</span>
+        <ul>
+          <li *ngFor="let errorFile of errorFiles">{{errorFile}}</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <form [formGroup]="sqlData" *ngIf="!isInputEmptyOrWithErrors()">
+      <h2>Additional data</h2>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Generator Tool Used</mat-label>
+        <mat-select [formControl]="sqlData.controls.generator" disableRipple>
+          <mat-option value="">---</mat-option>
+          <mat-option *ngFor="let g of generators" [value]="g.value">{{g.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field floatLabel="always">
+        <mat-label>Organization name</mat-label>
+        <input matInput [formControl]="sqlData.controls.org">
+        <mat-error *ngIf="sqlData.controls.org.hasError('required')">
+          Organization name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website name</mat-label>
+        <input matInput [formControl]="sqlData.controls.appName">
+        <mat-error *ngIf="sqlData.controls.appName.hasError('required')">
+          App/Website name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website type *</mat-label>
+        <mat-select [formControl]="sqlData.controls.type" disableRipple>
+          <mat-option value="">---</mat-option>
+          <mat-option *ngFor="let t of types" [value]="t.value">{{t.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="sqlData.controls.type.hasError('required')">
+          App/Website type is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website URL</mat-label>
+        <input matInput [formControl]="sqlData.controls.appUrl">
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website sector *</mat-label>
+        <mat-select [formControl]="sqlData.controls.sector" disableRipple>
+          <mat-option value="">---</mat-option>
+          <mat-option *ngFor="let s of sectors" [value]="s.value">{{s.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website country</mat-label>
+        <input type="text"
+           aria-label="Country"
+           matInput
+           [formControl]="sqlData.controls.country"
+           [matAutocomplete]="auto"
+           (blur)="inputControl($event)">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let c of countriesOptions | async" [value]="c">
+            {{c.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Application/Website tags</mat-label>
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let tag of selectedTagsNames"
+            [removable]="true"
+            (removed)="removeTag(tag)">{{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        <input type="text"
+          aria-label="Tags"
+          matInput
+          #tagsInput
+          [formControl]="sqlData.controls.tags"
+          [matAutocomplete]="autoTest"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addTag($event)">
+        </mat-chip-list>
+        <mat-autocomplete 
+          autoActiveFirstOption
+          #autoTest="matAutocomplete"
+          (optionSelected)="addTag($event)"
+          [displayWith]="displayFn">
+          <mat-option *ngFor="let t of tagsOptions | async" [value]="t">
+            {{t.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <div fxFlex></div>
+    <button mat-raised-button color="primary" [disabled]="isDisabledButton()" (click)="sendFile()">Submit</button>
+  </mat-card-actions>
+</mat-card>

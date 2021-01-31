@@ -1,0 +1,19 @@
+<mat-dialog-content>
+    <h1 *ngIf="!response" class="error">> Error</h1>
+    <h1 *ngIf="response" class="warning">> Warning</h1>
+
+    <p *ngIf="!message && !response && links">Encountered errors in the following urls:</p>
+    <p *ngIf="message">There was a parse error of your file!</p>
+    <p *ngIf="response">The statement was successfully added but there were errors in the following reports found:</p>
+
+    <ul *ngIf="links">
+       <li *ngFor="let link of links; let i = index">
+           <a href="{{link}}">{{link}}</a>
+       </li>
+    </ul>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button color="warn" (click)="close()">Close</button>
+</mat-dialog-actions>

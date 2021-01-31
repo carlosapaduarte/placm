@@ -1,0 +1,36 @@
+<!-- This modal window is displayed when a chart's column is clicked/pressed -->
+<!-- but only when the chart is '*group by*'' -->
+<!-- This way, it's allowed to make a 'Comparing' navigation once again -->
+
+<h1>Comparing same category</h1>
+<p>In this dialog, you can compare {{categoryName}}'s data.</p>
+
+<mat-radio-group [formControl]="form.controls.radio" aria-label="Select a filter option">
+  <mat-radio-button value="0" color="primary">Only use data from {{graphTitle}}</mat-radio-button>
+  <br>
+  <mat-radio-button value="1" color="primary">Use data from all filters being used</mat-radio-button>
+</mat-radio-group>
+
+<p>Select which {{categoryNamePlural}} do you want to compare:</p>
+<mat-form-field floatLabel="always">
+  <mat-label>Names</mat-label>
+  <mat-select
+    aria-label="Names from same category"
+    id='names'
+    [formControl]="form.controls.names"
+    [multiple]="true">
+    <mat-option *ngFor="let c of namesOptions | async" [value]="c">
+      {{c.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-divider></mat-divider>
+
+<div class="actionButtons">
+  <button mat-raised-button color="warn" (click)="close()">Close</button>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button color="primary"
+  [disabled]="form.controls.names.value.length < 2"
+  (click)="goToCompPageSame()">Go to comparison page</button>
+</div>

@@ -1,0 +1,57 @@
+mat-panel-title {
+  flex-grow: 0;
+}
+
+#chart {
+  margin-top: 1em;
+}
+
+.alternate {
+  background-color: Gainsboro;
+}
+
+/* begin - mat-table columns */
+.mat-column-outcome{
+  flex: 0 0 10% !important;
+}
+.mat-column-rulename,
+.mat-column-page{
+  flex: 0 0 20% !important;
+}
+.mat-column-eval{
+  flex: 0 0 15% !important;
+}
+/* end - mat-table columns */
+
+.mat-cell.mat-column-rulename a,
+.mat-cell.mat-column-page a,
+.mat-cell.mat-column-eval span
+.mat-cell.mat-column-description span{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-row:nth-child(even){
+  background-color: whitesmoke;
+}
+
+/* begin - adding padding between columns */
+.mat-row .mat-cell:not(:last-child){
+  padding-right: 1em;
+}
+.mat-header-row .mat-header-cell:not(:last-child){
+  padding-right: 1.15em;
+}
+/* end - adding padding between columns */
+
+.mat-accordion .mat-expansion-panel.headers  {
+  border: 1px;
+  border-bottom-width: 0;
+  border-style: solid;
+  border-color: lightblue;
+}
+.mat-accordion .mat-expansion-panel.headers:last-of-type{
+  border-bottom-width: 1px;
+}
+

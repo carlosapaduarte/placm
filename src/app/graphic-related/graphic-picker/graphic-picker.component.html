@@ -1,0 +1,8 @@
+<mat-form-field floatLabel="always">
+  <mat-label>Category</mat-label>
+  <mat-select (selectionChange)="changeCategory($event.value)">
+    <mat-option *ngFor="let category of categories" [value]="category.abbr">
+      {{category.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

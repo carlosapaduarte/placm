@@ -1,0 +1,178 @@
+ /*#asFile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+#asFile + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: rgb(93, 8, 8);
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+#asFile:focus + label,
+#asFile + label:hover {
+  background-color: rgb(155, 26, 26);
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 50px;
+}
+
+legend {
+  background-color: rgb(149, 84, 84);
+  border-radius: 8px;
+  color: rgb(31, 16, 165);
+  padding: 3px 25px;
+  text-align: center;
+}
+
+fieldset {
+  border-radius: 8px;
+  width: 50%;
+}
+
+.divider {
+  text-align: center;
+  padding: 1em;
+}
+
+.submitButton {
+  width: 100%;
+  height: 10px;
+}
+ 
+.verticalDivider {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap; 
+}
+
+.verticalDivider > span {
+  position: relative;
+  display: inline-block;
+}
+
+.verticalDivider > span:before,
+.verticalDivider > span:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  width: 1px;
+  background: red;
+}
+
+.verticalDivider > span:before {
+  bottom: 100%;
+  margin-bottom: 15px;
+}
+
+.verticalDivider > span:after {
+  top: 100%;
+  margin-top: 15px;
+} 
+
+::ng-deep .mat-card-header-text {
+  margin: 0 !important;
+} */
+
+/* ---------- LINK INPUT ---------- */
+
+#asLinks {
+  -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+  width: 100%;
+}
+
+.errorMessage {
+  color: darkred;
+  font-weight: 700;
+}
+
+/* and/or text */
+
+.divider {
+  margin: 0.5em 0;
+}
+
+/* ---------- FILE INPUT ---------- */
+
+#asFiles + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: #3f51b5;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#asFiles:focus + label,
+#asFiles + label:hover {
+  background-color: #2a3a97;
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 50px;
+}
+
+input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.errorFilenames {
+  margin-top: 0.5em;
+}
+
+.errorFilenames ul {
+  padding-left: 0;
+  margin-left: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+
+.errorFilenames li {
+  margin-bottom: 0.25em;
+}
+
+.link * {
+  display: block;
+}
+
+/* ---------- ANGULAR CSS ---------- */
+
+::ng-deep .mat-card-header-text {
+  margin: 0 !important;
+}
+
+::ng-deep .mat-card-content {
+  margin-bottom: 0 !important;
+}
+
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-infix {
+  font-size: 1.25em;
+}

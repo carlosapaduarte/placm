@@ -1,0 +1,12 @@
+.breadcrumb {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+  }
+  
+  .breadcrumb > li {
+    display: flex;
+    align-items: center;
+  }
+  

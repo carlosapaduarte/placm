@@ -1,0 +1,19 @@
+<h1 mat-dialog-title *ngIf="!allDone">
+  Are you sure you want to clear all database?
+</h1>
+
+<mat-dialog-content>
+  <mat-spinner *ngIf="loadingResponse" aria-label="Deleting database" color="warn"></mat-spinner>
+  <div *ngIf="allDone && success" class="success">
+    Everything went smoothly!
+  </div>
+  <div *ngIf="allDone && !success" class="failed">
+    Something went wrong! Try again later!
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="warn" [disabled]="loadingResponse" (click)="close()">Close</button>
+  <span class="fill-remaining-space"></span>
+  <button *ngIf="!allDone && !loadingResponse" mat-raised-button color="primary" (click)="emergencyButton()">Clear</button>
+</mat-dialog-actions>

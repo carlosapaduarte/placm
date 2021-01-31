@@ -1,0 +1,74 @@
+<ng-template [ngIf]="error" [ngIfElse]="noError">
+  <app-error-page [errorMsg]="errorMessage"></app-error-page>
+</ng-template>
+
+<ng-template #noError>
+  <ng-template [ngIf]="!chartsReady" [ngIfElse]="chartsAllReady">
+    <div class="loader_wrapper">
+      <div class="loader"><p></p></div>
+      <p class="loading_text">Loading...</p>
+    </div>
+  </ng-template>
+  
+  <ng-template #chartsAllReady>
+    <app-graphic-breadcrumbs *ngIf="tableReady" [data]="breadcrumbsData"></app-graphic-breadcrumbs>
+    <!--div class="loading_background" *ngIf="loadingBackground">Loading...</div-->
+    <div class="graphic">
+      <div *ngFor="let c of charts; let i = index" id="{{ 'chart' + i }}" class="chart">
+      </div>
+      <div class="data-table">
+        <ng-template [ngIf]="comparing" [ngIfElse]="compareDifferentTypes">
+          <table tabindex="-1" *ngIf="tableReady && showTable" class="sameTypes" id="tableSame" summary="Table representation of chart">
+            <tr>
+              <td rowspan="1"></td>
+              <th *ngFor="let variable of table[0]; let i = index" scope="col">{{variable}}</th>
+            </tr>
+            <tr *ngFor="let row of table | slice:1; let j = index" class="header">
+              <th scope="row">{{row[0]}}</th>
+              <td *ngFor="let rowData of row | slice:1">{{rowData}}</td>
+            </tr>
+          </table>
+        </ng-template>
+        <ng-template #compareDifferentTypes>
+          <!-- https://www.w3.org/WAI/tutorials/tables/irregular/ -->
+          <table tabindex="-1" *ngIf="tableReady && showTable" class="differentTypes" id="tableDiff" summary="Table representation of chart">
+            <col>
+            <colgroup *ngFor="let variable of table[0]" span="{{charts.length}}"></colgroup>
+            <tr>
+              <td rowspan="2"></td>
+              <th *ngFor="let variable of table[0]; let i = index" scope="colgroup" [attr.colspan]="charts.length">{{variable}}</th>
+            </tr>
+            <tr>
+              <th *ngFor="let colHeader of table[1]; let j = index" scope="col">{{colHeader}}</th>
+            </tr>
+            <tr *ngFor="let row of table | slice:2; let k = index" class="sticky">
+              <th scope="row">{{row[0]}}</th>
+              <td *ngFor="let rowData of row | slice:1">{{rowData}}</td>
+            </tr>
+          </table>
+        </ng-template>
+      </div>
+      <button *ngIf="sCriteriaVisible" (click)="changeVariablesGroup()">
+        <span *ngIf="actualVariablesGroup === 'scriteria'">Group by assertions</span>
+        <span *ngIf="actualVariablesGroup !== 'scriteria'">Group by success criteria</span>
+      </button>
+      <button *ngIf="comparingSameType" (click)="changeGraphicType()">
+        Change graphic type
+      </button>
+      <div class="filter-wrap">
+        <input [(ngModel)]="searchText" placeholder="Filter options" class="filter-input">
+        <button mat-button *ngIf="searchText.length>0" matSuffix mat-icon-button aria-label="Clear filter" (click)="searchText=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div id="checkboxes">
+          <mat-checkbox *ngFor="let variable of xAxisVars | filter: searchText; let i = index" color="primary" 
+          [checked]="variable.checked" 
+          (change)="updateBySelection(variable.id, 0, 
+          {'id': variable.id, 'index': i, 'checked': $event.checked})">{{variable.name}}</mat-checkbox>
+      </div>
+      <button (click)="handleCheckboxes(true)">Select all</button>
+      <button (click)="handleCheckboxes(false)">Unselect all</button>
+    </div>
+  </ng-template>
+</ng-template>

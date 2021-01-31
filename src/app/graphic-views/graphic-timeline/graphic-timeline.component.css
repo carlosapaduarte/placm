@@ -1,0 +1,31 @@
+.graphic {
+  margin-top: 1em;
+}
+
+#chart {
+  width: 100% !important;
+  min-height: 20em;
+  height: 50vh;
+}
+
+::ng-deep .mat-toolbar {
+  height: 3em;
+}
+
+#checkboxes {
+  padding: 0.5rem;
+  max-height: 20rem;
+  overflow: auto;
+}
+
+#checkboxes mat-checkbox{
+  display: table;
+}
+
+/* to avoid overflow with export */
+::ng-deep .highcharts-container{
+  width: 100% !important;
+}
+::ng-deep .highcharts-container > svg{
+  width: 100% !important;
+}

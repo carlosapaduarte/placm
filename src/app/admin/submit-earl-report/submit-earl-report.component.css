@@ -1,0 +1,93 @@
+/* ---------- LINK INPUT ---------- */
+
+#earlLinks {
+  -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+  width: 100%;
+}
+
+.errorMessage {
+  color: darkred;
+  font-weight: 700;
+}
+
+/* and/or text */
+
+.divider {
+  margin: 0.5em 0;
+}
+
+/* ---------- FILE INPUT ---------- */
+
+#earlFiles + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: #3f51b5;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#earlFiles:focus + label,
+#earlFiles + label:hover {
+  background-color: #2a3a97;
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 50px;
+}
+
+input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.errorFilenames {
+  margin-top: 0.5em;
+}
+
+.errorFilenames ul {
+  padding-left: 0;
+  margin-left: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+
+.errorFilenames li {
+  margin-bottom: 0.25em;
+}
+
+.link * {
+  display: block;
+}
+
+/* ---------- ANGULAR CSS ---------- */
+
+::ng-deep .mat-card-header-text {
+  margin: 0 !important;
+}
+
+::ng-deep .mat-card-content {
+  margin-bottom: 0 !important;
+}
+
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-infix {
+  font-size: 1.25em;
+}

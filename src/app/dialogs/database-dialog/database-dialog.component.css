@@ -1,0 +1,14 @@
+::ng-deep .mat-dialog-content {
+  overflow: hidden;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+.failed {
+  color: darkred;
+}
+
+.success {
+  color: green;
+}

@@ -1,0 +1,131 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+* {
+  font-family: Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.mat-tab-body {
+  max-height: 50vh;
+}
+
+/* begin app-sclist - accordeon */
+.mat-expansion-panel-spacing {
+  margin: 0 0 !important;
+}
+
+.mat-expansion-panel-header-title {
+  font-weight: 500;
+}
+
+.mat-expansion-panel-header-description {
+  color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: unset !important;
+}
+
+.mat-expansion-panel-body .mat-expansion-panel-content {
+  overflow: auto !important;
+}
+
+.mat-expansion-panel-body .mat-expansion-panel-body {
+  padding: 0 1.5em 1em !important;
+  min-width: 50em;
+}
+/* end app-sclist - accordeon */
+
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+      Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.loader_wrapper {
+  margin-top: 1rem;
+  width: 100%;
+}
+.loader {
+  border: 1.5rem solid #f3f3f3; 
+  border-top: 1.5rem solid #3f51b5;
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+  position: relative;
+}
+.loading_text {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@media only screen and (max-width: 450px) {
+  .loader {
+    border: 1rem solid #f3f3f3; 
+    border-top: 1rem solid #3f51b5;
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/**** Data table ****/
+.data-table {
+  overflow-x: auto;
+}
+.data-table tr {
+  text-align: center;
+  vertical-align: middle;
+}
+/*.data-table tr:nth-of-type(1) td:nth-of-type(1){
+  padding-left: 5rem;
+}*/
+.data-table .sameTypes tr:nth-of-type(1) {
+  background-color: #3f51b5;
+  color: white;
+}
+.data-table .differentTypes tr:nth-of-type(-n+2){
+  background-color: #3f51b5;
+  color: white;
+}
+.data-table th{
+  padding: 0.25em 0.75em;
+}
+/*.data-table .sticky th{
+  padding: unset;
+}*/
+.data-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+/*.data-table .sticky th {
+  position: absolute;
+  left: auto;
+  width: 5rem;
+  top: auto;
+}*/
+.data-table .header:nth-of-type(even) th{
+  background-color: #f2f2f2;
+}
+.data-table .header:nth-of-type(odd) th {
+  background-color: white;
+}
+
+app-sidebar-navigation {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+}

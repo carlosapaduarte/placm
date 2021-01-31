@@ -1,0 +1,11 @@
+.error {
+  color: darkred;
+}
+
+.warning {
+  color: saddlebrown;
+}
+
+h1 {
+  margin: 0;
+}

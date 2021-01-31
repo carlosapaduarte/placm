@@ -1,0 +1,40 @@
+<ng-template [ngIf]="error" [ngIfElse]="noError">
+    <app-error-page [errorMsg]="errorMessage"></app-error-page>
+  </ng-template>
+  
+  <ng-template #noError>
+    <ng-template [ngIf]="!chartsReady" [ngIfElse]="chartsAllReady">
+      <div class="loader_wrapper">
+        <div class="loader"><p></p></div>
+        <p class="loading_text">Loading...</p>
+      </div>
+    </ng-template>
+    
+    <ng-template #chartsAllReady>
+      <app-graphic-breadcrumbs [data]="breadcrumbsData"></app-graphic-breadcrumbs>
+      <div class="graphic">
+        <div id="chart"></div>
+        <div class="data-table">
+          <table tabindex="-1" *ngIf="showTable" class="sameTypes" id="dataTable" summary="Table representation of chart">
+            <tr>
+              <td rowspan="1"></td>
+              <th *ngFor="let variable of table[0]; let i = index" scope="col">{{variable}}</th>
+            </tr>
+            <tr *ngFor="let row of table | slice:1; let j = index" class="header">
+              <th scope="row">{{row[0]}}</th>
+              <td *ngFor="let rowData of row | slice:1">{{rowData}}</td>
+            </tr>
+          </table>
+        </div>
+        <button *ngIf="sCriteriaVisible" (click)="changeType()">
+          <span *ngIf="actualVariablesGroup === 'scriteria'">Group by assertions</span>
+          <span *ngIf="actualVariablesGroup !== 'scriteria'">Group by success criteria</span>
+        </button>
+        <div id="checkboxes">
+            <mat-checkbox *ngFor="let variable of xAxisVars; let i = index" color="primary" [checked]="variable.checked" (change)="updateBySelection(variable.id, 0)">{{variable.name}}</mat-checkbox>
+        </div>
+      </div>
+      <button (click)="selectAllCheckboxes()">Select all</button>
+      <button (click)="unselectAllCheckboxes()">Unselect all</button>
+    </ng-template>
+  </ng-template>
