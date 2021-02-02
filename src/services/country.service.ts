@@ -61,4 +61,23 @@ export class CountryService {
       )
       .toPromise();
   }
+
+  getAllNames(serverName: string, category: string): Promise<any> {
+    let opts = new HttpParams();
+    opts = opts.append('name', serverName);
+    return this.http.get(countryUrl + category + 'AllNames', {params: opts})
+      .pipe(
+        retry(3),
+        map(res => {
+          if (res['success'] !== 1 || res['errors'] !== null) {
+            throw new PLACMError(res['success'], res['message']);
+          }
+          return res;
+        }),
+        catchError(err => {
+          return throwError(err);
+        })
+      )
+      .toPromise();
+  }
 }

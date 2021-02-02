@@ -80,9 +80,9 @@ export class SubmitEarlReportComponent implements OnInit {
 
   private async prepareData(): Promise<void> {
     if(SERVER_NAME !== undefined){
-      this.countries = await this.combinedService.getNames('country');
+      this.countries = await this.combinedService.getAllNames('country');
       this.countries = this.countries['result'];
-      this.tags = await this.combinedService.getNames('tag');
+      this.tags = await this.combinedService.getAllNames('tag');
       this.tags = this.tags['result'];
     }
     for(let sec of Object.keys(SECTORS)){

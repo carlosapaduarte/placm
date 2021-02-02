@@ -125,3 +125,21 @@ header {
     text-decoration: none;
     margin: 1rem 0;
 }
+
+.currentClass a, .currentPage a {
+    color: #ffc195;
+}
+
+.currentPage a {
+    margin-left: 1rem;
+}
+
+.currentClass a::before, .currentPage a::before {
+    content: "";
+    left: -15px;
+    top: 0;
+    height: 20px;
+    position: absolute;
+    width: 7px;
+    background-color: #ffc195;
+}

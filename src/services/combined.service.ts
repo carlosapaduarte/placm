@@ -204,6 +204,38 @@ export class CombinedService {
     }
   }
 
+  async getAllNames(category: string): Promise<any> {
+    let sessionName = this.getStorageName(category, 'allNames');
+    let sessionData = this.session.getObject(sessionName);
+
+    let data;
+    try {
+      if(sessionData === undefined || sessionData.result === []){
+        switch(category){
+          case 'continent':
+          case 'country':
+            data = await this.countryService.getAllNames(SERVER_NAME, category);
+            break;
+          case 'tag':
+            data = await this.tagService.getAllNames(SERVER_NAME);
+            break;
+          default:
+            //todo error
+            data = await this.countryService.getNames(SERVER_NAME, 'continent');
+            break;
+        } 
+      }
+
+      if(await data && data.success === 1){
+        data.timedate = Date.now();
+        this.session.setObject(sessionName, data);
+      }
+      return this.session.getObject(sessionName);
+    } catch (err){
+      return Promise.reject(err);
+    }
+  }
+
   async getTimelineData(type: string, queryParams?: any): Promise<any> {
     let sessionName = this.getStorageName('timeline', type, [queryParams]);
     let sessionData = this.session.getObject(sessionName);
