@@ -1,12 +1,31 @@
 <h1>About</h1>
-<p>The <span class="bold">Large-Scale Test Data Browser</span> (also known as <span class="bold">Prototype Large-Scale Accessibility Conformance Monitoring, or PLACM</span>) is a deliverable (D3.3) of the <a href="https://www.w3.org/WAI/about/projects/wai-tools/" target="_blank">WAI-Tools project</a>,
-    a European Commission (EC) co-funded project under the Horizon 2020 Program (780057).</p>
-<p>The objective of this prototype is to demonstrate how existing standards and open-data formats allow for the development of tools to assist in the study and monitoring of large amounts of accessibility evaluation data.</p>
+<p>This <strong>Prototype Large-Scale Accessibility Conformance Monitoring (<abbr>PLACM</abbr>)</strong> demonstrates the use of open data to support large-scale accessibility monitoring initiatives. This includes monitoring conformance with requirements of the <a href="https://eur-lex.europa.eu/eli/dir/2016/2102/oj"><abbr title="European Union">EU</abbr> Web Accessibility Directive (<abbr>WAD</abbr>)</a>.</p>
 
-<h2 id="datavis">What data is supported</h2>
-<p>PLACM allows visualizing data from two categories of evaluation results: assertions and success criteria. The data that can be visualized for each category is:</p>
+<h2 id="datafnc">What does this tool do?</h2>
+<p><abbr>PLACM</abbr> visualizes accessibility data that could be scraped from:</p>
 <ul>
-    <li>Assertions
+    <li><strong>Accessibility reports</strong>, such as those created with the <a href="https://www.w3.org/WAI/eval/report-tool/"><abbr>W3C</abbr> <abbr>WCAG-EM</abbr> Report Tool</a></li>
+    <li><strong>Accessibility statements</strong>, such as those created with the <a href="https://www.w3.org/WAI/planning/statements/"><abbr>W3C</abbr> Accessibility Statements Generator</a></li>
+</ul>
+<p><abbr>PLACM</abbr> allows you to browse such accessibility data in a variety of ways, for example to group and compare different countries, industry sectors, and other parameters. It simulates large-scale monitoring of accessibility data that is drawn from decentralized sources, for example from accessibility reports and statements that website owners make available to the monitoring body.</p>
+
+<h2 id="datanav">How does this tool work?</h2>
+<p><abbr>PLACM</abbr> allows you to browse accessibility data in different ways. One option is to select just one category of data from the sidebar to access all the data grouped by that category.</p>
+<p>Other visualization options can be accessed by selecting one of the bars in a chart. After selecting a bar, a window is displayed where one of the following visualization modes can be selected:</p>
+<ul>
+    <li><strong>Drilldown</strong> allows you to consult data from a category below, filtered by the data points corresponding to the bar selected. Multiple drilldowns can be applied consecutively.</li>
+    <li><strong>Group by</strong> allows you to compare the data points of the bar selected, grouped by entries of a category above.</li>
+    <li><strong>Comparison</strong> allows you to compare the data points of the bar selected with other entries of the same category.</li>
+    <li><strong>Timeline</strong> displays the temporal evolution of data by month. Each point in the horizontal axis is a month and the corresponding data are the results evaluated in that month.</li>
+    <li><strong>Details</strong> allows you to consult the assertions contributing to the outcome of each success criterion. This visualization is only available when the visualization in which the modal window was opened is based on the category 'Application/Website' and the results shown are of success criteria. This navigation generates an accordion, with success criteria grouped by their result.</li>
+</ul>
+<p>Below each bar chart there is a checkbox list that allows toggling the visibility of specific data points.</p>
+<p>Above this list there is a button that toggles the data presented between assertions and success criteria. Success criteria visualizations are only possible for charts displaying data for the Success criteria category and above.</p>
+
+<h2 id="datavis">Which data is supported?</h2>
+<p><abbr>PLACM</abbr> allows you to visualize data from two categories of evaluation results: assertions and success criteria. The data that can be visualized for each category is:</p>
+<ul>
+    <li><strong>Assertions</strong>
         <ul>
             <li>Number of pages;</li>
             <li>Number of assertions with result 'passed';</li>
@@ -16,7 +35,7 @@
             <li>Number of assertions with result 'untested';</li>
         </ul>
     </li>
-    <li>Success criteria
+    <li><strong>Success criteria</strong>
         <ul>
             <li>Number of criteria with result 'passed';</li>
             <li>Number of criteria with result 'failed';</li>
@@ -27,31 +46,9 @@
     </li>
 </ul>
 
-<p>This data can be grouped by different categories of metadata, from country to ACT rule assessed. The different categories supported can be found in the sidebar.</p>
+<h2 id="datains">How is the data entered?</h2>
+<p><abbr>PLACM</abbr> uses the machine-readable <a href="https://www.json.org/"><abbr title="JavaScript Object Notation">JSON</abbr> format</a>. It relies on accessibility reports with data that is structured according to the <a href="https://www.w3.org/WAI/standards-guidelines/earl/"><abbr>W3C</abbr> Evaluation and Report Language (<abbr>EARL</abbr>)</a>. See also the <a href="https://github.com/w3c/earl">GitHub <abbr>EARL</abbr> repository</a>. <abbr>PLACM</abbr> scrapes additional information from accessibility statements.</p>
+<p>The currently available data has fictional yet realistic values. You can enter additional data into the platform through the <a [routerLink]="['/admin']">administration page</a>. Two types of data sources are considered: Accessibility Statements and <abbr>EARL</abbr> Reports. The tool parses the documents, and stores application-related data and test results, in the form of assertions. After selecting a file or multiple files, a form is presented where metadata about the report(s) being uploaded can be provided, so that the data can be browsed according to the existing categories.</p>
 
-<h2 id="datanav">What can I do</h2>
-<p>PLACM allows navigating and browsing the data in different ways. The simplest one is just selecting one category of data from the sidebar to access all the data grouped by the category.</p>
-<p>The other visualization options can be accessed by selecting one of the bars in a chart.
-    After selecting a bar, a window will be displayed where one of the following visualization modes can be selected
-</p>
-<ul>
-    <li><span class="bold">Drilldown</span> allows consulting data from a category below, filtered by the data points corresponding to the bar selected. Multiple drilldowns can be applied consecutively.</li>
-    <li><span class="bold">Group by</span> allows comparing the data points of the bar selected, grouped by entries of a category above.</li>
-    <li><span class="bold">Comparison</span> allows comparing the data points of the bar selected with other entries of the same category.</li>
-    <li><span class="bold">Timeline</span> displays the temporal evolution of data by month. Each point in the horizontal axis is a month and the corresponding data are the results evaluated in that month.</li>
-    <li><span class="bold">Details</span> allows to consult the assertions contributing to the outcome of each success criterion.
-        This visualization is only accessible if the visualization in which the modal window was opened is based on the category 'Application/Website' and the results shown are of success criteria.
-        This navigation generates an accordion, with success criteria grouped by their result
-    </li>
-</ul>
-
-<p>Below each bar chart there is a checkbox list that allows toggling the visibility of specific data points.</p>
-<p>Above this list there is a button that toggles the data presented between assertions and success criteria.
-    Success criteria visualizations are only possible for charts displaying data for the Success criteria category and above.</p>
-
-<h2 id="datains">Entering data</h2>
-<p>Data can be entered into the platform through the <a [routerLink]="['/admin']">administration page</a>.
-    Two types of data sources have been considered: Accessibility Statements and EARL Reports.
-    Documents are parsed to store application-related data and test results, in the form of assertions.
-    After selecting a file (or multiple files), a form is presented where metadata about the report(s) being uploaded can be provided such that the data can be browsed according to the existing categories.
-</p>
+<h2 id="dataack">Acknowledgements</h2>
+<p>This tool was developed as part of the <a href="https://www.w3.org/WAI/about/projects/wai-tools/" target="_blank">WAI-Tools Project</a>, a European Commission (<abbr>EC</abbr>) co-funded project under the Horizon 2020 Program (780057). All <a href="https://github.com/carlosapaduarte/placm/">source code for this tool</a> is provided on GitHub.</p>
