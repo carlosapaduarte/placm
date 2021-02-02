@@ -129,3 +129,8 @@ app-sidebar-navigation {
   overflow: hidden;
   display: flex;
 }
+
+/* Cancel mat-select font-size bug */
+.mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option {
+  font-size: initial !important;
+}

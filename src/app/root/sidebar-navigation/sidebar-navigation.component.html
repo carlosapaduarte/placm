@@ -10,54 +10,58 @@
             <li>
                 <p>Classes</p>
                 <ul>
-                    <li>
+                    <li [attr.aria-current]="actualClass === classes[0] ? 'page' : null" [class.currentClass]="actualClass === classes[0]">
                         <a [routerLink]="[variableGroup,'continent']">Continent</a>
                     </li>
-                    <li>
+                    <li [attr.aria-current]="actualClass === classes[1] ? 'page' : null" [class.currentClass]="actualClass === classes[1]">
                         <a [routerLink]="[variableGroup,'country']">Country</a>
                     </li>
-                    <li>
+                    <li [attr.aria-current]="actualClass === classes[2] ? 'page' : null" [class.currentClass]="actualClass === classes[2]">
                         <a [routerLink]="[variableGroup,'tag']">Tag</a>
                     </li>
-                    <li>
+                    <li [attr.aria-current]="actualClass === classes[3] ? 'page' : null" [class.currentClass]="actualClass === classes[3]">
                         <a [routerLink]="[variableGroup,'sector']">Sector</a>
                     </li>
-                    <li>
+                    <li [attr.aria-current]="actualClass === classes[4] ? 'page' : null" [class.currentClass]="actualClass === classes[4]">
                         <a [routerLink]="[variableGroup,'org']">Organization</a>
                     </li>
-                    <li>
+                    <li [attr.aria-current]="actualClass === classes[5] ? 'page' : null" [class.currentClass]="actualClass === classes[5]">
                         <a [routerLink]="[variableGroup,'app']">Application/Website</a>
                     </li>
-                    <li>
+                    <li [attr.aria-current]="actualClass === classes[6] ? 'page' : null" [class.currentClass]="actualClass === classes[6]">
                         <a [routerLink]="[variableGroup,'eval']">Evaluation tool</a>
                     </li>
-                    <li *ngIf="!scriteriaGroup">
-                        <a [routerLink]="[variableGroup,'sc']">Success criteria</a>
-                    </li>
-                    <li *ngIf="!scriteriaGroup">
-                        <a [routerLink]="[variableGroup,'type']">Type of element</a>
-                    </li>
-                    <li *ngIf="!scriteriaGroup">
-                        <a [routerLink]="[variableGroup,'rule']">Rule</a>
-                    </li>
-                    <li *ngIf="scriteriaGroup" class="isDisabled">
-                        <span>Success criteria</span>
-                    </li>
-                    <li *ngIf="scriteriaGroup" class="isDisabled">
-                        <span>Type of element</span>
-                    </li>
-                    <li *ngIf="scriteriaGroup" class="isDisabled">
-                        <span>Rule</span>
-                    </li>
+                    <ng-template [ngIf]="scriteriaGroup" [ngIfElse]="assertionsGroup">
+                        <li class="isDisabled">
+                            <span>Success criteria</span>
+                        </li>
+                        <li class="isDisabled">
+                            <span>Type of element</span>
+                        </li>
+                        <li class="isDisabled">
+                            <span>Rule</span>
+                        </li>
+                    </ng-template>
+                    <ng-template #assertionsGroup>
+                        <li [attr.aria-current]="actualClass === classes[7] ? 'page' : null" [class.currentClass]="actualClass === classes[7]">
+                            <a [routerLink]="[variableGroup,'sc']">Success criteria</a>
+                        </li>
+                        <li [attr.aria-current]="actualClass === classes[8] ? 'page' : null" [class.currentClass]="actualClass === classes[8]">
+                            <a [routerLink]="[variableGroup,'type']">Type of element</a>
+                        </li>
+                        <li [attr.aria-current]="actualClass === classes[9] ? 'page' : null" [class.currentClass]="actualClass === classes[9]">
+                            <a [routerLink]="[variableGroup,'rule']">Rule</a>
+                        </li>
+                    </ng-template>
                 </ul>
             </li>
             <li>
                 <hr>
             </li>
-            <li>
+            <li [class.currentPage]="actualClass === 'admin'">
                 <a [routerLink]="['/admin']">Administration page</a>
             </li>
-            <li>
+            <li [class.currentPage]="actualClass === 'about'">
                 <a [routerLink]="['/about']">About PLACM</a>
             </li>
         </ul>
